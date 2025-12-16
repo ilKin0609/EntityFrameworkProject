@@ -1,5 +1,31 @@
-﻿@{
-    Layout = "_Layout2";
-}
+﻿@model List<ProductVM>
 
-<h1>Products</h1>
+<div class="row" id="productContainer">
+    @await Html.PartialAsync("_ProductPartial", Model)
+</div>
+
+<div class="text-center mt-3">
+    <button id="loadMoreBtn" class="btn btn-primary">
+        Load More
+    </button>
+</div>
+
+<script>
+    let skip = 6;
+
+    document.getElementById("loadMoreBtn").addEventListener("click", function () {
+        fetch(`/Product/LoadMore?skip=${skip}`)
+            .then(res => res.text())
+            .then(data => {
+                if (data.trim() === "") {
+                    document.getElementById("loadMoreBtn").style.display = "none";
+                    return;
+                }
+
+                document.getElementById("productContainer")
+                    .insertAdjacentHTML("beforeend", data);
+
+                skip += 6;
+            });
+    });
+</script>

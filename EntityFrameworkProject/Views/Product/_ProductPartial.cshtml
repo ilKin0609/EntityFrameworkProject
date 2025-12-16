@@ -1,0 +1,15 @@
+﻿@model List<ProductVM>
+
+@foreach (var item in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="@item.ImageUrl" class="card-img-top" />
+            <div class="card-body">
+                <h5>@item.Name</h5>
+                <p>@item.CategoryName</p>
+                <strong>@item.Price ₼</strong>
+            </div>
+        </div>
+    </div>
+}
